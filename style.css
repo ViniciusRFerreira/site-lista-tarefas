@@ -1,0 +1,17 @@
+body{
+    background-color: #3BACB6;
+    color: white;
+}
+
+h1{
+    border-bottom-style: inset;
+}
+
+.tarefaselecionada{
+    color: red;
+    font-style: italic;
+}
+
+.tarefanormal {
+    color: black;
+}
