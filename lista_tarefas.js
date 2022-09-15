@@ -52,7 +52,54 @@ frm.btRetirar.addEventListener("click", () => {
 
     let aux = -1;
 
+    // percorre a lista das tarefas inseridas na página
+    tarefas.forEach((tarefa, i) => {
+    if(tarefa.className == 'tarefa-selecionada'){
+        aux = i;
+    }    
+    })    
+
     if(aux == -1){
         alert("Selecione uma tarefa para removê-lá...")
+        return;
+    }
+
+    //solicitar a confirmação para a remoção
+    if (confirm(`Confirma a exclusão de "${tarefas[aux].innerText}"`)){
+        dvQuadro.removeChild(tarefas[aux]);
+    }
+});
+
+frm.btGravar.addEventListener("ckick", () => {
+    const tarefas = document.querySelectorAll("h5");
+
+    if (tarefas.length == 0){
+        alert("Não há tarefas a serem salvas!")
+    }
+
+    let dados = ""// string para "acumular" os dados
+
+    tarefas.forEach(tarefa => {
+        dados += tarefa.innerText + ";";
+    })
+
+    //gravar no localStorage
+    localStorage.setItem("tarefasDia", dados.slice(0,-1));
+
+    if (localStorage.getItem("tarefasDia")){
+        alert("Ok! Tarefas salvas.")
+    }
+});
+
+window.addEventListener("load", () => {
+    if(localStorage.getItem("tarefasDia")){
+        const dados = localStorage.getItem("tarefasDia").split(";");
+
+        dados.forEach(dado => {
+            const h5 = document.createElement("h5");
+            const texto = document.createTextNode(dado);
+            h5.appendChild(texto);
+            dvQuadro.appendChild(h5);
+        })
     }
 });
