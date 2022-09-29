@@ -70,36 +70,38 @@ frm.btRetirar.addEventListener("click", () => {
     }
 });
 
-frm.btGravar.addEventListener("ckick", () => {
+frm.btGravar.addEventListener("click", () => {
     const tarefas = document.querySelectorAll("h5");
 
-    if (tarefas.length == 0){
-        alert("Não há tarefas a serem salvas!")
+    if (tarefas.length == 0) {
+        alert("Não há tarefas para salvar.");
     }
 
-    let dados = ""// string para "acumular" os dados
+    let dados = ""; // string para "acumular" os dados
 
-    tarefas.forEach(tarefa => {
+    tarefas.forEach((tarefa) => {
         dados += tarefa.innerText + ";";
-    })
+    });
 
-    //gravar no localStorage
-    localStorage.setItem("tarefasDia", dados.slice(0,-1));
+    // gravar no localStorage
+    localStorage.setItem("tarefasDia", dados.slice(0, -1));
 
-    if (localStorage.getItem("tarefasDia")){
-        alert("Ok! Tarefas salvas.")
+    if (localStorage.getItem("tarefasDia")) {
+        alert("Tarefas salvas.");
     }
 });
 
 window.addEventListener("load", () => {
-    if(localStorage.getItem("tarefasDia")){
+    if (localStorage.getItem("tarefasDia")) {
+        // carrega as tarefas salvas no localStorage
         const dados = localStorage.getItem("tarefasDia").split(";");
 
-        dados.forEach(dado => {
+        // cria os elementos a partir dos dados carregados
+        dados.forEach((dado) => {
             const h5 = document.createElement("h5");
             const texto = document.createTextNode(dado);
             h5.appendChild(texto);
-            dvQuadro.appendChild(h5);
-        })
+            divQuadro.appendChild(h5);
+        });
     }
 });
